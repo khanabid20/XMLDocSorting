@@ -2,13 +2,15 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:m="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="xml" encoding="utf-8" indent="yes" version="1.0" />
-
+	
+	<!-- Identity transform -->
 	<xsl:template match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" />
 		</xsl:copy>
 	</xsl:template>
 	
+	<!-- Copy Person first and then work also want Person sort by m:name & work sort by location -->
 	<xsl:template match="Persons">
 		<xsl:copy>
 			<xsl:apply-templates select="@*"/>
@@ -21,6 +23,7 @@
 		</xsl:copy>
 	</xsl:template>
 
+	<!-- maintaining sequence of Person's childnodes with m:email sorted -->
 	<xsl:template match="Person">
 		<xsl:copy>
 			<xsl:apply-templates select="@*" />
@@ -32,6 +35,7 @@
 		</xsl:copy>
 	</xsl:template>
 
+	<!-- sorting work/company node by rank attribute -->
 	<xsl:template match="work">
 		<xsl:copy>
 			<xsl:apply-templates select="@*"/>
